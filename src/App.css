@@ -1,6 +1,10 @@
 .App {
   text-align: center;
+  background-color: blue;
+  margin: 100px;
+  border: solid 1px rgb(200, 255, 0);
 }
+
 
 .App-logo {
   height: 40vmin;
@@ -35,4 +39,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.fullsize{
+  height: 100vh
 }

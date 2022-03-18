@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-viennacalling-dev-192814-authRole",
+      "UnauthRoleArn": "arn:aws:iam::347987868616:role/amplify-viennacalling-dev-192814-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::347987868616:role/amplify-viennacalling-dev-192814-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-viennacalling-dev-192814-deployment",
+      "UnauthRoleName": "amplify-viennacalling-dev-192814-unauthRole",
+      "StackName": "amplify-viennacalling-dev-192814",
+      "StackId": "arn:aws:cloudformation:eu-central-1:347987868616:stack/amplify-viennacalling-dev-192814/37707370-a6e9-11ec-8037-0ac3e2a1c376",
+      "AmplifyAppId": "d1yvkikh011ec6"
+    },
+    "categories": {
+      "auth": {
+        "viennacallingf3ab5b73": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1yvkikh011ec6",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}

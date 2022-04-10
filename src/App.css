@@ -61,21 +61,53 @@
   background-color: rgba(237, 239, 245, 0.541);
 }
 
-.rightSide{
-  min-height: 80vh;
+.rightSideup{
+  min-height: 20vh;
   width: 100%;
   border: 1px dashed black;
   background-color: rgba(228, 230, 235, 0.541);
   float: right;
 }
+
+.rightSidedown{
+  min-height: 20vh;
+  width: 100%;
+  border: 1px dashed black;
+  background-color: rgba(214, 112, 151, 0.541);
+  float: right;
+}
+
+.rightTaskLine
+{
+ 
+  width: 100%;
+  border: 1px dashed black;
+  background-color: rgba(226, 215, 219, 0.541);
+  float: right;
+}
 .box{
   border: 1px solid blue;
   font-size: 10px;
+  font-variant: small-caps;
   width: 120px;
   height: 120px;
   margin: 12px;
   background-color:#b9f0a8;
   float: left;
+}
+
+.open{
+  background-color: coral;
+}
+.done {
+ background-color:#b9f0a8;
+}
+.selected{
+  background-color:#dbe76a75;
+}
+
+.abandonned{
+  background-color:#f51111;
 }
 
 ul.a {list-style-type: none;}

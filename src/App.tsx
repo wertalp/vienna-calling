@@ -121,7 +121,7 @@ function App({}) {
           <Row>
           <div className="rightSideup" title="Your Bank">
               <span> <h3> Buchen </h3></span>
-              <Accordion defaultActiveKey="0">
+              <Accordion flush>
                   <Accordion.Item eventKey="0">
                       <Accordion.Header>Termine buchen</Accordion.Header>
                       <Accordion.Body>
@@ -178,7 +178,7 @@ function App({}) {
           <Row>
           <div className="rightTaskLine" >
           <span> <h3> Pipeline </h3></span>
-          <Accordion defaultActiveKey="0">
+          <Accordion>
   <Accordion.Item eventKey="0">
     <Accordion.Header>Termine buchen</Accordion.Header>
     <Accordion.Body>

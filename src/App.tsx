@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {Container, Row ,Col,Navbar,Nav, Button, Spinner, Accordion} from 'react-bootstrap' ;
+import {Container, Row ,Col,Navbar,Nav, Button, Spinner, Accordion,NavItem} from 'react-bootstrap' ;
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -10,8 +10,10 @@ import {Person} from './models/person' ;
 Amplify.configure(awsconfig);
 
 
-
 function App({}) {
+
+  const [currentUser, setCurrentUser] = useState("") ;
+
   let selectedUsers : Person[] =
                          [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
   {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }] ;
@@ -36,22 +38,44 @@ function App({}) {
 
    useEffect ( ( ) => {
      selectedUsers =   [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
-                           {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }] ;
+                           {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
 
-   },[])
+       checkUser();
+
+   }, []) ;
+
+   const checkUser = () => {
+        Auth.currentAuthenticatedUser().then( user => setCurrentUser(user.username)) ;
+    }
+
 
   
   return (
     <Container fluid className='fullsize'>
-        <Navbar sticky="top" bg="light" variant="light">
+        <Navbar sticky="top" bg="primary" variant="light">
     <Container>
-    <Navbar.Brand href="#home">Vienna Connect</Navbar.Brand>
+    <Navbar.Brand href="#home">Vienna-Connect Comapnies</Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link href="#home">Kunden</Nav.Link>
         <Nav.Link href="#anbieter">Anbieter</Nav.Link>
-        <Nav.Link href="#kontakte">Konatkte</Nav.Link>
+        <Nav.Link href="#kontakte">Kontakte</Nav.Link>
         <Nav.Link href="#preise">Preise</Nav.Link>
-        <Nav.Link href="#account">Account</Nav.Link>
+
+          <Nav className="ml-auto">
+              <NavItem >
+                  <Nav.Link href="#account">
+                      <Button  size="sm">
+                          <AmplifySignOut></AmplifySignOut></Button>
+                  </Nav.Link>
+              </NavItem>
+              <NavItem >
+                  <Nav.Link href="#account">
+                      <Button className="float-end" variant="outline-info" size="sm"> {currentUser} </Button>
+                  </Nav.Link>
+              </NavItem>
+
+          </Nav>
+
       </Nav>
     </Container>
   </Navbar>
@@ -88,7 +112,6 @@ function App({}) {
               </tr>
             </tbody>
           </table>
-          
             </div>
         </Col>
        
@@ -96,23 +119,48 @@ function App({}) {
         <Col lg={6} md={6} xs={12} >
           <Row>
           <div className="rightSideup" title="Your Bank">
-         <span> <h3> Offene Termine</h3></span>
+              <span> <h3> Buchen </h3></span>
+              <Accordion flush>
+                  <Accordion.Item eventKey="0">
+                      <Accordion.Header>Termine buchen</Accordion.Header>
+                      <Accordion.Body>
         { users && users.map( (user :Person ) =>   <div className="box open" draggable> 
         <ul  className="a">
           <li> {user.firstName} </li>
           <li>{user.lastName} </li>
           <li>{user.city}    </li>
           <li>{user.mobileNr} </li>
+
         </ul>
-        <Button variant="outline-info" size="sm">BOOK</Button>
+        <Button  variant="outline-info" className="float-end"   size="sm">BOOK</Button>
         </div>  )}
+                      </Accordion.Body>
+                  </Accordion.Item>
+
+                  <Accordion.Item eventKey="1">
+                      <Accordion.Header>Termine finished</Accordion.Header>
+                      <Accordion.Body>
+                          <span> <h3> fertige Termine</h3></span>
+                          { users && users.map( (user :Person ) =>   <div className="box done" draggable>
+                              <ul  className="a">
+                                  <li> {user.firstName} </li>
+                                  <li>{user.lastName} </li>
+                                  <li>{user.city}    </li>
+                                  <li>{user.mobileNr} </li>
+                              </ul>
+                              <Button variant="outline-info" size="sm">BOOK</Button>
+                          </div>  )}
+                      </Accordion.Body>
+                  </Accordion.Item>
+              </Accordion>
 
       </div>
+
 
           </Row>
           <Row>
           <div className="rightSidedown" >
-          <span> <h3> Erledigte Termine</h3></span>
+
         { users && users.map( (user :Person ) =>   <div className="box done" draggable> 
         <ul  className="a">
           <li> {user.firstName} </li>
@@ -122,13 +170,14 @@ function App({}) {
         </ul>
         <Button variant="outline-info" size="sm">BOOK</Button>
         </div>  )}
+
       </div>
           </Row>
 
           <Row>
           <div className="rightTaskLine" >
           <span> <h3> Pipeline </h3></span>
-          <Accordion defaultActiveKey="0">
+          <Accordion>
   <Accordion.Item eventKey="0">
     <Accordion.Header>Termine buchen</Accordion.Header>
     <Accordion.Body>
@@ -167,10 +216,12 @@ function App({}) {
           </Row>
     </Col>
      </Row>
-    <div className="footer">
-        <AmplifySignOut></AmplifySignOut>
-    </div>
-     
+        <footer className="fixed-bottom bg-dark text-center text-white">
+            <div className="text-capitalize">
+                <p>Folkmann Wertal Solutions in 2022 for Vienna Location @helge.patrick.te.me</p>
+            </div>
+        </footer>
+
     </Container>
 
   );

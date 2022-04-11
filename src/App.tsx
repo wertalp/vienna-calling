@@ -88,11 +88,11 @@ function App({}) {
               </tr>
             </tbody>
           </table>
-            { users && users.map( (user :Person ) =>   <div> {user.lastName}</div>  )}
+          
             </div>
         </Col>
        
-       
+      
         <Col lg={6} md={6} xs={12} >
           <Row>
           <div className="rightSideup" title="Your Bank">

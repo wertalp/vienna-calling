@@ -112,7 +112,7 @@ function App({}) {
               </tr>
             </tbody>
           </table>
-            { users && users.map( (user :Person ) =>   <div> {user.lastName}</div>  )}
+
             </div>
         </Col>
        

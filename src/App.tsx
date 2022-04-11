@@ -112,11 +112,10 @@ function App({}) {
               </tr>
             </tbody>
           </table>
-
             </div>
         </Col>
        
-       
+      
         <Col lg={6} md={6} xs={12} >
           <Row>
           <div className="rightSideup" title="Your Bank">
@@ -224,7 +223,6 @@ function App({}) {
         </footer>
 
     </Container>
-
 
   );
 }

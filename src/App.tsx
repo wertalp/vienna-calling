@@ -7,12 +7,21 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator ,AmplifySignOut} from '@aws-amplify/ui-react';
 import {Person} from './models/person' ;
+import {ClientDataTable} from "./components/ClientDataTable";
+import IClient from "./models/IClient";
+import {getAllClients} from "./services/ClientService" ;
 Amplify.configure(awsconfig);
+
+type AppProps = {
+    clients: IClient[]
+};
 
 
 function App({}) {
 
-  const [currentUser, setCurrentUser] = useState("") ;
+    const [currentUser, setCurrentUser] = useState("") ;
+    const [clients, setClients] = useState<IClient[]>([]);
+
 
   let selectedUsers : Person[] =
                          [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
@@ -36,16 +45,26 @@ function App({}) {
 
 
 
+    const appProps : AppProps ={clients:[]} ;
+
+
    useEffect ( ( ) => {
-     selectedUsers =   [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
-                           {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
+     selectedUsers =   [ { firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() },
+                         { firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
 
        checkUser();
+       loadClients();
 
    }, []) ;
 
    const checkUser = () => {
         Auth.currentAuthenticatedUser().then( user => setCurrentUser(user.username)) ;
+    }
+
+    const loadClients = () => {
+        getAllClients()
+            .then( (res) => res)
+            .then( res => setClients(res));
     }
 
 
@@ -82,36 +101,7 @@ function App({}) {
       <Row justify-content-center h-40>
         <Col lg={6} md={6} xs={12}>
             <div  className="leftSide"> 
-            <table className="table table-striped table-dark">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Steffie</td>
-                <td>Folkmann</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Helge</td>
-                <td>Fokmann</td>
-                <td>@fancy</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Florian</td>
-                <td>the Folki</td>
-                <td>@vienna</td>
-              </tr>
-            </tbody>
-          </table>
+                <ClientDataTable clients={clients}  > </ClientDataTable>
 
             </div>
         </Col>
@@ -138,22 +128,22 @@ function App({}) {
                       </Accordion.Body>
                   </Accordion.Item>
 
-                  <Accordion.Item eventKey="1">
-                      <Accordion.Header>Termine finished</Accordion.Header>
-                      <Accordion.Body>
-                          <span> <h3> fertige Termine</h3></span>
-                          { users && users.map( (user :Person ) =>   <div className="box done" draggable>
-                              <ul  className="a">
-                                  <li> {user.firstName} </li>
-                                  <li>{user.lastName} </li>
-                                  <li>{user.city}    </li>
-                                  <li>{user.mobileNr} </li>
-                              </ul>
-                              <Button variant="outline-info" size="sm">BOOK</Button>
-                          </div>  )}
-                      </Accordion.Body>
-                  </Accordion.Item>
-              </Accordion>
+          <Accordion.Item eventKey="1">
+              <Accordion.Header>Termine finished</Accordion.Header>
+              <Accordion.Body>
+                  <span> <h3> fertige Termine</h3></span>
+                  { users && users.map( (user :Person ) =>   <div className="box done" draggable>
+                      <ul  className="a">
+                          <li> {user.firstName} </li>
+                          <li>{user.lastName} </li>
+                          <li>{user.city}    </li>
+                          <li>{user.mobileNr} </li>
+                      </ul>
+                      <Button variant="outline-info" size="sm">BOOK</Button>
+                  </div>  )}
+              </Accordion.Body>
+          </Accordion.Item>
+      </Accordion>
 
       </div>
 

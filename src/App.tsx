@@ -10,7 +10,11 @@ import {Person} from './models/person' ;
 import {ClientDataTable} from "./components/ClientDataTable";
 import IClient from "./models/IClient";
 import {getAllClients} from "./services/ClientService" ;
+import IEvent from "./models/IEvent";
+import  {selectedUsers, allUsers} from './test-data/testdata' ;
+import {getAllEvents} from "./services/EventService";
 Amplify.configure(awsconfig);
+
 
 type AppProps = {
     clients: IClient[]
@@ -21,39 +25,15 @@ function App({}) {
 
     const [currentUser, setCurrentUser] = useState("") ;
     const [clients, setClients] = useState<IClient[]>([]);
-
-
-  let selectedUsers : Person[] =
-                         [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
-  {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }] ;
-  let users : Person[] = [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
-                          {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                          {firstName: "Helge",lastName:"Folkmann" , mobileNr:"078 2660060", city:"Bern", activated: new Date()},
-                          {firstName: "Florian",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                          {firstName: "Anabelle",lastName:"Suisse", mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                          {firstName: "Florina",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date()},
-                          {firstName: "Margarita",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date()},
-                          {firstName: "Hanno",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date()},
-                          {firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
-                          {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                          {firstName: "Helge",lastName:"Folkmann" , mobileNr:"078 2660060", city:"Bern", activated: new Date()},
-                          {firstName: "Florian",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                          {firstName: "Anabelle",lastName:"Suisse", mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                          {firstName: "Florina",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date()},
-                          {firstName: "Margarita",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date()}
-                         ] ;
-
-
-
+    const [events, setEvents]   = useState<IEvent[]>([]);
     const appProps : AppProps ={clients:[]} ;
 
 
    useEffect ( ( ) => {
-     selectedUsers =   [ { firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() },
-                         { firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
 
        checkUser();
-       loadClients();
+       loadClients() ;
+       loadEvents()  ;
 
    }, []) ;
 
@@ -67,22 +47,32 @@ function App({}) {
             .then( res => setClients(res));
     }
 
+    const loadEvents = () => {
+       getAllEvents()
+           .then(res => setEvents(res))
+    }
+
 
   
   return (
     <Container fluid className='fullsize'>
-        <Navbar sticky="top" bg="primary" variant="light">
+        <Navbar sticky="top" bg="primary" variant="dark" className="navbar-default">
+        <Navbar.Brand href="#home">Vienna-Connect Comapnies</Navbar.Brand>
     <Container>
-    <Navbar.Brand href="#home">Vienna-Connect Comapnies</Navbar.Brand>
-      <Nav className="me-auto">
+   
+      <Nav className="ms-auto">
+        <Nav.Link href="#home">Kunden</Nav.Link>
+        <Nav.Link href="#anbieter">Anbieter</Nav.Link>
+        <Nav.Link href="#kontakte">Kontakte</Nav.Link>
+        <Nav.Link href="#preise">Preise</Nav.Link>
         <Nav.Link href="#home">Kunden</Nav.Link>
         <Nav.Link href="#anbieter">Anbieter</Nav.Link>
         <Nav.Link href="#kontakte">Kontakte</Nav.Link>
         <Nav.Link href="#preise">Preise</Nav.Link>
 
-          <Nav className="ml-auto">
+          <Nav className="ms-1">
               <NavItem >
-                  <Nav.Link href="#account">
+                  <Nav.Link  className="ms-auto" href="#account">
                       <Button  size="sm">
                           <AmplifySignOut></AmplifySignOut></Button>
                   </Nav.Link>
@@ -100,7 +90,9 @@ function App({}) {
   </Navbar>
       <Row justify-content-center h-40>
         <Col lg={6} md={6} xs={12}>
+
             <div  className=".leftSide">
+
                 <ClientDataTable clients={clients}  > </ClientDataTable>
 
             </div>
@@ -116,12 +108,15 @@ function App({}) {
           <Accordion.Item eventKey="0">
               <Accordion.Header>Offene Termine</Accordion.Header>
               <Accordion.Body>
-                  { users && users.map( (user :Person ) =>   <div className="box done" draggable>
+                  { events && events.map( (event :IEvent ) =>   <div className="box done" draggable>
                       <ul  className="a">
-                          <li> {user.firstName} </li>
-                          <li>{user.lastName} </li>
-                          <li>{user.city}    </li>
-                          <li>{user.mobileNr} </li>
+                          <li> {event.id} </li>
+                          <li>{event.title} </li>
+                          <li>{event.description}    </li>
+                          <li>{event.booking_date} </li>
+                          <li>{event.branche} </li>
+                          <li>{event.action_time} </li>
+                          <li>{event.branche} </li>
                       </ul>
                       <Button variant="outline-info" size="sm">BOOK</Button>
                   </div>  )}

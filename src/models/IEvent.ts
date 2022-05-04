@@ -3,9 +3,12 @@ export default interface IEvent {
     title  : string,
     description  : string,
     contactName  : string,
-    bookingDate  : string ,
+    booking_date  : string ,
+    action_time  : string ,
+    action_date  : string ,
     plz     : string ,
     street  : string ,
     city    : string ,
-    branche : string
+    branche : string,
+    status : string
 }

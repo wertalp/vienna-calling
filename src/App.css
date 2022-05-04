@@ -53,12 +53,12 @@
   float: right;
 }
 .box{
-  border: 1px solid blue;
-  font-size: 10px;
+  border: 2px solid blue;
+  font-size: 11px;
   font-variant: small-caps;
-  width: 120px;
-  height: 120px;
-  margin: 12px;
+  width: 200px;
+  height: 180px;
+  margin: 4px;
   padding-right: 8px;
   background-color:#b9f0a8;
   float: left;

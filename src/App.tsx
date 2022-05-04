@@ -117,6 +117,9 @@ function App({}) {
                           <li>{event.branche} </li>
                           <li>{event.action_time} </li>
                           <li>{event.branche} </li>
+                          <li>{event.client.lastName} </li>
+                          <li>{event.company.companyName} </li>
+
                       </ul>
                       <Button variant="outline-info" size="sm">BOOK</Button>
                   </div>  )}

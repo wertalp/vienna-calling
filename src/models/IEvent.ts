@@ -1,3 +1,5 @@
+import ICompany from './ICompany' ;
+import IClient from './IClient' ;
 export default interface IEvent {
     id?    : any | null,
     title  : string,
@@ -6,6 +8,8 @@ export default interface IEvent {
     booking_date  : string ,
     action_time  : string ,
     action_date  : string ,
+    client   : IClient  ,
+    company  : ICompany ,
     plz     : string ,
     street  : string ,
     city    : string ,

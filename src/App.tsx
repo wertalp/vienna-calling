@@ -7,12 +7,21 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator ,AmplifySignOut} from '@aws-amplify/ui-react';
 import {Person} from './models/person' ;
+import {ClientDataTable} from "./components/ClientDataTable";
+import IClient from "./models/IClient";
+import {getAllClients} from "./services/ClientService" ;
 Amplify.configure(awsconfig);
+
+type AppProps = {
+    clients: IClient[]
+};
 
 
 function App({}) {
 
-  const [currentUser, setCurrentUser] = useState("") ;
+    const [currentUser, setCurrentUser] = useState("") ;
+    const [clients, setClients] = useState<IClient[]>([]);
+
 
   let selectedUsers : Person[] =
                          [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
@@ -35,16 +44,30 @@ function App({}) {
                          ] ;
 
 
+<<<<<<< HEAD
+=======
+
+    const appProps : AppProps ={clients:[]} ;
+
+
+>>>>>>> df4a641f9ee771836706852e59eb812701c5dbdd
    useEffect ( ( ) => {
-     selectedUsers =   [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
-                           {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
+     selectedUsers =   [ { firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() },
+                         { firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
 
        checkUser();
+       loadClients();
 
    }, []) ;
 
    const checkUser = () => {
         Auth.currentAuthenticatedUser().then( user => setCurrentUser(user.username)) ;
+    }
+
+    const loadClients = () => {
+        getAllClients()
+            .then( (res) => res)
+            .then( res => setClients(res));
     }
 
 
@@ -86,6 +109,7 @@ function App({}) {
       <Row justify-content-center h-40>
         <Col lg={6} md={6} xs={12}>
             <div  className="leftSide"> 
+<<<<<<< HEAD
             <table className="table table-striped table-success table-hover">
             <thead>
               <tr>
@@ -116,10 +140,14 @@ function App({}) {
               </tr>
             </tbody>
           </table>
+=======
+                <ClientDataTable clients={clients}  > </ClientDataTable>
+
+>>>>>>> df4a641f9ee771836706852e59eb812701c5dbdd
             </div>
         </Col>
        
-      
+       
         <Col lg={6} md={6} xs={12} >
           <Row>
           <div className="rightSideup" title="Your Bank">
@@ -141,22 +169,22 @@ function App({}) {
                       </Accordion.Body>
                   </Accordion.Item>
 
-                  <Accordion.Item eventKey="1">
-                      <Accordion.Header>Termine finished</Accordion.Header>
-                      <Accordion.Body>
-                          <span> <h3> fertige Termine</h3></span>
-                          { users && users.map( (user :Person ) =>   <div className="box done" draggable>
-                              <ul  className="a">
-                                  <li> {user.firstName} </li>
-                                  <li>{user.lastName} </li>
-                                  <li>{user.city}    </li>
-                                  <li>{user.mobileNr} </li>
-                              </ul>
-                              <Button variant="outline-info" size="sm">BOOK</Button>
-                          </div>  )}
-                      </Accordion.Body>
-                  </Accordion.Item>
-              </Accordion>
+          <Accordion.Item eventKey="1">
+              <Accordion.Header>Termine finished</Accordion.Header>
+              <Accordion.Body>
+                  <span> <h3> fertige Termine</h3></span>
+                  { users && users.map( (user :Person ) =>   <div className="box done" draggable>
+                      <ul  className="a">
+                          <li> {user.firstName} </li>
+                          <li>{user.lastName} </li>
+                          <li>{user.city}    </li>
+                          <li>{user.mobileNr} </li>
+                      </ul>
+                      <Button variant="outline-info" size="sm">BOOK</Button>
+                  </div>  )}
+              </Accordion.Body>
+          </Accordion.Item>
+      </Accordion>
 
       </div>
 
@@ -227,6 +255,7 @@ function App({}) {
         </footer>
 
     </Container>
+
 
   );
 }

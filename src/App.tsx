@@ -100,7 +100,7 @@ function App({}) {
   </Navbar>
       <Row justify-content-center h-40>
         <Col lg={6} md={6} xs={12}>
-            <div  className="leftSide"> 
+            <div  className=".leftSide">
                 <ClientDataTable clients={clients}  > </ClientDataTable>
 
             </div>
@@ -112,26 +112,10 @@ function App({}) {
           <div className="rightSideup" title="Your Bank">
               <span> <h3> Buchen </h3></span>
               <Accordion flush>
-                  <Accordion.Item eventKey="0">
-                      <Accordion.Header>Termine buchen</Accordion.Header>
-                      <Accordion.Body>
-        { users && users.map( (user :Person ) =>   <div className="box open" draggable> 
-        <ul  className="a">
-          <li> {user.firstName} </li>
-          <li>{user.lastName} </li>
-          <li>{user.city}    </li>
-          <li>{user.mobileNr} </li>
 
-        </ul>
-        <Button  variant="outline-info" className="float-end"   size="sm">BOOK</Button>
-        </div>  )}
-                      </Accordion.Body>
-                  </Accordion.Item>
-
-          <Accordion.Item eventKey="1">
-              <Accordion.Header>Termine finished</Accordion.Header>
+          <Accordion.Item eventKey="0">
+              <Accordion.Header>Offene Termine</Accordion.Header>
               <Accordion.Body>
-                  <span> <h3> fertige Termine</h3></span>
                   { users && users.map( (user :Person ) =>   <div className="box done" draggable>
                       <ul  className="a">
                           <li> {user.firstName} </li>
@@ -146,22 +130,9 @@ function App({}) {
       </Accordion>
 
       </div>
-
-
           </Row>
           <Row>
           <div className="rightSidedown" >
-
-        { users && users.map( (user :Person ) =>   <div className="box done" draggable> 
-        <ul  className="a">
-          <li> {user.firstName} </li>
-          <li>{user.lastName} </li>
-          <li>{user.city}    </li>
-          <li>{user.mobileNr} </li>
-        </ul>
-        <Button variant="outline-info" size="sm">BOOK</Button>
-        </div>  )}
-
       </div>
           </Row>
 
@@ -169,24 +140,6 @@ function App({}) {
           <div className="rightTaskLine" >
           <span> <h3> Pipeline </h3></span>
           <Accordion>
-  <Accordion.Item eventKey="0">
-    <Accordion.Header>Termine buchen</Accordion.Header>
-    <Accordion.Body>
-    <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-    </Spinner>
-    { selectedUsers && selectedUsers.map( (user :Person ) =>   <div className="box selected" draggable> 
-        <ul  className="a">
-          <li> {user.firstName} </li>
-          <li>{user.lastName} </li>
-          <li>{user.city}    </li>
-          <li>{user.mobileNr} </li>
-          </ul>
-        <Button variant="outline-info" size="sm">BOOK</Button>
-        </div>  )}
-
-    </Accordion.Body>
-  </Accordion.Item>
   <Accordion.Item eventKey="1">
     <Accordion.Header>Termine Absagegen</Accordion.Header>
     <Accordion.Body>

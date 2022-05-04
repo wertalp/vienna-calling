@@ -35,7 +35,6 @@ function App({}) {
                          ] ;
 
 
-
    useEffect ( ( ) => {
      selectedUsers =   [{firstName: "Patrick",lastName:"Wertal" , mobileNr:"078 2660060", city:"Bern", activated: new Date() }, 
                            {firstName: "Steffie",lastName:"Folkmann", mobileNr:"078 2660060", city:"Bern", activated: new Date() }];
@@ -52,18 +51,23 @@ function App({}) {
   
   return (
     <Container fluid className='fullsize'>
-        <Navbar sticky="top" bg="primary" variant="light">
+        <Navbar sticky="top" bg="primary" variant="dark" className="navbar-default">
+        <Navbar.Brand href="#home">Vienna-Connect Comapnies</Navbar.Brand>
     <Container>
-    <Navbar.Brand href="#home">Vienna-Connect Comapnies</Navbar.Brand>
-      <Nav className="me-auto">
+   
+      <Nav className="ms-auto">
+        <Nav.Link href="#home">Kunden</Nav.Link>
+        <Nav.Link href="#anbieter">Anbieter</Nav.Link>
+        <Nav.Link href="#kontakte">Kontakte</Nav.Link>
+        <Nav.Link href="#preise">Preise</Nav.Link>
         <Nav.Link href="#home">Kunden</Nav.Link>
         <Nav.Link href="#anbieter">Anbieter</Nav.Link>
         <Nav.Link href="#kontakte">Kontakte</Nav.Link>
         <Nav.Link href="#preise">Preise</Nav.Link>
 
-          <Nav className="ml-auto">
+          <Nav className="ms-1">
               <NavItem >
-                  <Nav.Link href="#account">
+                  <Nav.Link  className="ms-auto" href="#account">
                       <Button  size="sm">
                           <AmplifySignOut></AmplifySignOut></Button>
                   </Nav.Link>
@@ -82,7 +86,7 @@ function App({}) {
       <Row justify-content-center h-40>
         <Col lg={6} md={6} xs={12}>
             <div  className="leftSide"> 
-            <table className="table table-striped table-dark">
+            <table className="table table-striped table-success table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
